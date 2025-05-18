@@ -1,37 +1,41 @@
 name: Executar programa Python
 
 on:
-    schedule:
-      - cron: '*/5 * * * *'  
+  schedule:
+    - cron: '*/5 * * * *'
 
 permissions:
-    contents: write
-    
+  contents: write
+
 jobs:
-    execucio-temperaturea:
-        runs-on: ubuntu-latest
+  execucio-temperaturea:
+    runs-on: ubuntu-latest
 
-        steps:
-        - name: Clonar repositori
-          uses: actions/checkout@v3
+    steps:
+      - name: Clonar repositori
+        uses: actions/checkout@v4  
+        with:
+          fetch-depth: 0  
+          token: ${{ secrets.GITHUB_TOKEN }} 
 
-        - name: Configurar Python
-          uses: actions/setup-python@v5
-          with:
-            python-version: '3.11'
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-        - name: Install-lar dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install requests
+      - name: Install-lar dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
 
-        - name: Executar programa
-          run: python time.py
+      - name: Executar programa
+        run: python time.py
 
-        - name: Fer commit del fitxer.json
-          run: |
-            git config user.name "alexnavarro"
-            git config user.email "alex.navarro22@lacetania.cat"
-            git add temp_*.json
-            git commit -m "Fixer de temperatura diaria"	
-            git push origin main
+      - name: Fer commit del fitxer.json
+        run: |
+          git config --global user.name "alexnavarro"
+          git config --global user.email "alex.navarro22@lacetania.cat"
+          git checkout main
+          git add temp_*.json
+          git commit -m "Fixer de temperatura diaria"
+          git push origin main

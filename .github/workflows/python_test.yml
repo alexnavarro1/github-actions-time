@@ -6,7 +6,7 @@ on:
 
 permissions:
     contents: write
-    
+
 jobs:
     execucio-temperaturea:
         runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
         - name: Fer commit del fitxer.json
           run: |
             git config user.name "alexnavarro"
-            git config user.email "alex.navarro22@lacetania.cat"
-            git add temp_*.json
-            git commit -m "Fixer de temperatura diaria"	
+            git config user.email "alex.navarro22@lacetania.cat" 
+            git add temp_*.json 
+            git commit -m "Fixer de temperatura diaria"	|| echo "No hi ha canvis per fer commit"
             git push origin main
